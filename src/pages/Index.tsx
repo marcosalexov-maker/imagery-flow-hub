@@ -13,7 +13,7 @@ import { HeroContent, HeroItem, FadeUp, FadeScale, SectionHeader, StaggerContain
 import { TypingHeading } from "@/components/ui/typing-heading";
 import TestimonialsSection from "@/components/testimonials/TestimonialsSection";
 import BookingSection from "@/components/BookingSection";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/hero-bg.jpg.asset.json";
 import team1 from "@/assets/team-1.jpg";
 import team2 from "@/assets/team-2.jpg";
 const faqItems = [{
