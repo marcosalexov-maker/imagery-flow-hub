@@ -1,40 +1,38 @@
-This plan covers replacing the static image assets that are built into the code (not the CMS-driven portfolio/blog/testimonial images).
+# Slider da página inicial com vídeos e/ou imagens
 
-## What we'll update
+A página inicial já tem o slider "Our Process" (4 slides com imagens). A ideia é evoluí-lo para aceitar até 4 itens que podem ser **imagem ou vídeo**, mantendo o visual atual.
 
-| Image | Current file | Used in | Size |
-|-------|--------------|---------|------|
-| Hero background | `src/assets/hero-bg.jpg` | Home page hero section | ~1.1 MB |
-| Background pattern | `src/assets/background-pattern.png` | Global layout behind every page | ~8 KB |
-| Process slider 1 | `src/assets/slider-1.png` | ProcessSlider component | ~982 KB |
-| Process slider 2 | `src/assets/slider-2.png` | ProcessSlider component | ~947 KB |
-| Process slider 3 | `src/assets/slider-3.jpg` | ProcessSlider component | ~1.4 MB |
-| Process slider 4 | `src/assets/slider-4.jpg` | ProcessSlider component | ~65 KB |
-| Team member 1 | `public/lovable-uploads/20bc3d0f-...jpg` | Team section | - |
-| Team member 2 | `public/lovable-uploads/8dbfa6fe-...jpg` | Team section | - |
-| Team member 3 | `public/lovable-uploads/6ba56bd3-...jpg` | Team section | - |
+## O que muda
 
-## How to provide new images
+1. **Lista de slides configurável** no topo do componente do slider — cada item passa a ter:
+   - `type`: `"image"` ou `"video"`
+   - `src`: arquivo importado de `src/assets` (ou URL)
+   - `poster` (opcional, só para vídeo): imagem exibida antes do vídeo carregar
+   - `title`, `subtitle`, `description` (textos sobrepostos, como hoje)
+   - Limite de 4 itens; se houver mais, apenas os 4 primeiros são exibidos.
 
-You can either:
+2. **Renderização de vídeo**: quando `type: "video"`, o slide renderiza `<video>` com `muted`, `playsInline`, `loop`, `preload="metadata"` e `object-cover`, ocupando o mesmo espaço 16:9 das imagens.
 
-1. **Upload files directly in chat** — drag and drop or attach your new images here. I'll rename them to the right file names and place them in the correct directories.
-2. **Describe what you want** — I can generate replacement images using the image generator (good for stock-style/illustrative images). For team photos, uploading your real photos is strongly preferred.
+3. **Reprodução inteligente**:
+   - O vídeo do slide ativo dá play automaticamente; os demais ficam pausados e voltam ao início.
+   - Autoplay do carrossel: em slides de imagem continua trocando a cada 5s; em slides de vídeo o slider aguarda o fim do vídeo (ou um tempo máximo) antes de avançar.
+   - Pausa ao passar o mouse continua funcionando.
+   - Respeita `prefers-reduced-motion` (sem autoplay de vídeo nesse caso).
 
-## What I'll do
+4. **Setas, dots, textos e botão "Learn More"** permanecem idênticos e funcionam igual para imagem e vídeo.
 
-1. **Replace the 6 `src/assets/` images** by writing new files with the same names so the existing imports keep working.
-2. **Replace the 3 team photos** in `public/lovable-uploads/` with new files and update the filenames in `src/pages/Index.tsx` to match.
-3. **Remove unused image files** left in `src/assets/` (e.g., `slider-1.jpg`, `slider-2.jpg`, `process-hero.jpg`, unused `team-*.jpg`, `testimonial-*.jpg`) to keep the repo clean.
-4. **Verify** the app builds and the preview shows the new images.
+## Como você troca o conteúdo depois
 
-## Notes
+No começo do arquivo do slider haverá um bloco comentado bem visível com os 4 itens; basta:
+- Colocar o arquivo em `src/assets/` (imagem `.jpg/.png` ou vídeo `.mp4`)
+- Importar e ajustar `type` / `src` / textos do item.
 
-- The site is designed with a dark theme. Hero and slider images should look good under a dark gradient overlay; high-contrast images with darker tones work best.
-- Recommended process slider aspect ratio: 16:9, matching the slider container.
-- Recommended team photo aspect ratio: 4:5 (portrait), matching the current grid.
-- Recommended hero background: large, high-resolution (1920px+ wide), with a dark or textured subject so white text stays readable.
+## Detalhes técnicos
 
-## Next step
+- Arquivo: `src/components/ProcessSlider.tsx` (único arquivo alterado).
+- `useRef` com array de refs para os elementos `<video>`, controlando play/pause no efeito de mudança de slide.
+- Sem mudanças de backend, rotas ou design tokens.
 
-Upload your replacement images here (up to 10 files, 20 MB each), or tell me which images you'd like me to generate instead.
+## Observação
+
+Vídeos importados de `src/assets` entram no bundle. Para arquivos grandes (>5-10 MB), o ideal é hospedar o vídeo (ex.: em storage do backend) e usar a URL — posso configurar isso se preferir.
