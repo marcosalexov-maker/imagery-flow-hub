@@ -1,38 +1,43 @@
-# Slider da página inicial com vídeos e/ou imagens
+# Slider de fundo no Hero (até 4 imagens ou vídeos)
 
-A página inicial já tem o slider "Our Process" (4 slides com imagens). A ideia é evoluí-lo para aceitar até 4 itens que podem ser **imagem ou vídeo**, mantendo o visual atual.
+Hoje o hero da página inicial usa uma imagem fixa (`hero-bg.jpg`) como fundo, com o texto, botão e selo por cima. A mudança troca essa imagem fixa por um **slider de fundo em tela cheia** com até 4 itens, que podem ser imagens ou vídeos.
 
-## O que muda
+## Como vai funcionar
 
-1. **Lista de slides configurável** no topo do componente do slider — cada item passa a ter:
-   - `type`: `"image"` ou `"video"`
-   - `src`: arquivo importado de `src/assets` (ou URL)
-   - `poster` (opcional, só para vídeo): imagem exibida antes do vídeo carregar
-   - `title`, `subtitle`, `description` (textos sobrepostos, como hoje)
-   - Limite de 4 itens; se houver mais, apenas os 4 primeiros são exibidos.
+- Novo componente `HeroSlider` renderizado atrás do conteúdo do hero, ocupando toda a tela (mesmo enquadramento atual, `object-cover`).
+- Aceita **até 4 itens**; cada item é imagem (`.jpg/.png/.webp`) ou vídeo (`.mp4/.webm`).
+- Transição suave de fade entre os itens (sem "pulo"), com leve zoom lento, no mesmo espírito minimalista do site.
+- Troca automática:
+  - imagem: 6 segundos
+  - vídeo: avança quando o vídeo termina (com limite máximo de segurança)
+- Vídeos rodam mudos, em `loop` opcional, `playsInline`, com `poster` opcional — sem áudio e sem controles, já que é fundo.
+- Overlay escuro atual (gradiente preto) permanece, garantindo leitura do texto branco.
+- Indicadores discretos (pontinhos) na base do hero para trocar manualmente. Sem setas, para não competir com o CTA.
+- Respeita `prefers-reduced-motion`: sem autoplay/zoom, exibe só o primeiro item.
+- Se houver apenas 1 item, o slider se comporta como imagem/vídeo estático (sem pontinhos).
 
-2. **Renderização de vídeo**: quando `type: "video"`, o slide renderiza `<video>` com `muted`, `playsInline`, `loop`, `preload="metadata"` e `object-cover`, ocupando o mesmo espaço 16:9 das imagens.
+## Como você troca o conteúdo
 
-3. **Reprodução inteligente**:
-   - O vídeo do slide ativo dá play automaticamente; os demais ficam pausados e voltam ao início.
-   - Autoplay do carrossel: em slides de imagem continua trocando a cada 5s; em slides de vídeo o slider aguarda o fim do vídeo (ou um tempo máximo) antes de avançar.
-   - Pausa ao passar o mouse continua funcionando.
-   - Respeita `prefers-reduced-motion` (sem autoplay de vídeo nesse caso).
+No topo do arquivo do slider haverá um bloco comentado bem visível, por exemplo:
 
-4. **Setas, dots, textos e botão "Learn More"** permanecem idênticos e funcionam igual para imagem e vídeo.
+```text
+HERO_SLIDES = [
+  { type: "image", src: heroBg,          alt: "..." },
+  { type: "video", src: video1, poster: capa1 },
+  ...até 4 itens
+]
+```
 
-## Como você troca o conteúdo depois
-
-No começo do arquivo do slider haverá um bloco comentado bem visível com os 4 itens; basta:
-- Colocar o arquivo em `src/assets/` (imagem `.jpg/.png` ou vídeo `.mp4`)
-- Importar e ajustar `type` / `src` / textos do item.
+Basta colocar o arquivo em `src/assets/` (ou usar uma URL) e ajustar a lista. Itens além do 4º são ignorados.
 
 ## Detalhes técnicos
 
-- Arquivo: `src/components/ProcessSlider.tsx` (único arquivo alterado).
-- `useRef` com array de refs para os elementos `<video>`, controlando play/pause no efeito de mudança de slide.
-- Sem mudanças de backend, rotas ou design tokens.
+- Novo arquivo: `src/components/HeroSlider.tsx`.
+- `src/pages/Index.tsx`: a `div` de background com `backgroundImage` é substituída por `<HeroSlider />`; overlay e conteúdo ficam iguais.
+- Fade com Framer Motion (`AnimatePresence`), refs de `<video>` para play/pause conforme o slide ativo.
+- Vídeos grandes: importar de `src/assets` engorda o bundle. Recomendo hospedar arquivos acima de ~5 MB e usar a URL — posso configurar isso quando você enviar os vídeos.
+- Nenhuma mudança de backend, rotas ou tokens de design.
 
 ## Observação
 
-Vídeos importados de `src/assets` entram no bundle. Para arquivos grandes (>5-10 MB), o ideal é hospedar o vídeo (ex.: em storage do backend) e usar a URL — posso configurar isso se preferir.
+Começo com o `hero-bg.jpg` atual como primeiro slide e placeholders comentados para os outros três, prontos para você preencher com seus vídeos/imagens.
