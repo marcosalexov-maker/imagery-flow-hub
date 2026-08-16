@@ -13,7 +13,7 @@ import { HeroContent, HeroItem, FadeUp, FadeScale, SectionHeader, StaggerContain
 import { TypingHeading } from "@/components/ui/typing-heading";
 import TestimonialsSection from "@/components/testimonials/TestimonialsSection";
 import BookingSection from "@/components/BookingSection";
-import heroBg from "@/assets/hero-bg.jpg";
+import HeroSlider from "@/components/HeroSlider";
 import team1 from "@/assets/team-1.jpg";
 import team2 from "@/assets/team-2.jpg";
 const faqItems = [{
@@ -40,10 +40,9 @@ const Index = () => {
   return <Layout hasHero>
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 bg-cover bg-center" style={{
-        backgroundImage: `url(${heroBg})`
-      }} />
+        {/* Background Slider (imagens e/ou vídeos) */}
+        <HeroSlider />
+
         {/* Dark Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
         
