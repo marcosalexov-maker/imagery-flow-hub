@@ -40,10 +40,9 @@ const Index = () => {
   return <Layout hasHero>
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 bg-cover bg-center" style={{
-        backgroundImage: `url(${heroBg})`
-      }} />
+        {/* Background Slider (imagens e/ou vídeos) */}
+        <HeroSlider />
+
         {/* Dark Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
         
