@@ -9,11 +9,6 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { HeroContent, HeroItem, FadeUp, SectionHeader } from "@/components/ui/scroll-animation";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import type { PricingState } from "@/components/PricingPlans";
-
-interface LocationState {
-  pricing?: PricingState;
-}
 
 const faqItems = [{
   question: "How long does a project take?",
@@ -35,9 +30,6 @@ interface SubmitContactResponse {
 
 const Contact = () => {
   const { toast } = useToast();
-  const location = useLocation();
-  const locationState = location.state as LocationState | null;
-  const pricingData = locationState?.pricing;
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -49,18 +41,6 @@ const Contact = () => {
     website: "", // Honeypot field - should remain empty
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  // Pre-fill subject and message when coming from pricing
-  useEffect(() => {
-    if (pricingData) {
-      const billingLabel = pricingData.billingType === "annual" ? "Annual" : "Monthly";
-      setFormData(prev => ({
-        ...prev,
-        subject: `${pricingData.planName} Plan Inquiry`,
-        message: `I'm interested in the ${pricingData.planName} plan.\n\nSelected options:\n• Billing: ${billingLabel}\n• Team size: ${pricingData.teamSize} member${pricingData.teamSize > 1 ? "s" : ""}\n• Price: $${pricingData.price.toFixed(0)}/month\n\nPlease send me more information.`,
-      }));
-    }
-  }, [pricingData]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -220,32 +200,6 @@ const Contact = () => {
               <h2 className="text-2xl font-bold tracking-tight mb-8">
                 Send a Message
               </h2>
-
-              {/* Pricing Summary Card */}
-              {pricingData && !isSubmitted && (
-                <div className="mb-8 p-6 bg-secondary/50 rounded-2xl border border-border">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm text-muted-foreground">Selected plan</span>
-                    <span className="text-sm font-medium px-3 py-1 bg-primary text-primary-foreground rounded-full">
-                      {pricingData.planName}
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <p className="text-2xl font-light">${pricingData.price.toFixed(0)}</p>
-                      <p className="text-xs text-muted-foreground">/month</p>
-                    </div>
-                    <div>
-                      <p className="text-2xl font-light">{pricingData.teamSize}</p>
-                      <p className="text-xs text-muted-foreground">team {pricingData.teamSize === 1 ? "member" : "members"}</p>
-                    </div>
-                    <div>
-                      <p className="text-2xl font-light capitalize">{pricingData.billingType}</p>
-                      <p className="text-xs text-muted-foreground">billing</p>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               {isSubmitted ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center bg-secondary/30 rounded-3xl">
