@@ -52,7 +52,7 @@ const Index = () => {
             {/* Text Group */}
             <div className="flex flex-col gap-[10px]">
               <HeroItem>
-                <p className="text-sm font-medium tracking-[0.3em] uppercase text-white/70">Open to Opportunities</p>
+                <p className="text-sm font-medium tracking-[0.3em] uppercase text-white/70">Filmmaker | Photographer</p>
               </HeroItem>
               <HeroItem>
                 <TypingHeading />
