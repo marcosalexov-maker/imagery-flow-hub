@@ -58,7 +58,7 @@ const Index = () => {
                 <TypingHeading />
               </HeroItem>
               <HeroItem>
-                <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">Creating engaging brand experiences.</p>
+                <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">Creating memorable content.</p>
               </HeroItem>
             </div>
             {/* Button */}
