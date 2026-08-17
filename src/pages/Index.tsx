@@ -134,9 +134,9 @@ const Index = () => {
                   <Users className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xs font-medium tracking-wider uppercase text-white/50 mb-2 block">
-                  Collaboration
+                  EXPERIENCE
                 </span>
-                <h3 className="text-xl mb-3 font-normal">Seamless Collaboration</h3>
+                <h3 className="text-xl mb-3 font-normal">Seamless Experience</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
                   Delivered 50+ projects driving tangible results for companies
                 </p>
@@ -166,9 +166,9 @@ const Index = () => {
                   <Eye className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xs font-medium tracking-wider uppercase text-white/50 mb-2 block">
-                  Visibility
+                  STORYTELLING
                 </span>
-                <h3 className="text-xl mb-3 font-normal">Boosted Brand Visibility</h3>
+                <h3 className="text-xl mb-3 font-normal">Visual Storytelling</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
                   95% customer satisfaction rate
                 </p>
@@ -198,9 +198,9 @@ const Index = () => {
                   <BarChart3 className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xs font-medium tracking-wider uppercase text-white/50 mb-2 block">
-                  Data
+                  QUALITY
                 </span>
-                <h3 className="text-xl mb-3 font-normal">Data-Driven Insights</h3>
+                <h3 className="text-xl mb-3 font-normal">Uncompromising Quality</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
                   Analyzed user behavior for a 25% engagement boost.
                 </p>
