@@ -63,8 +63,8 @@ const Index = () => {
             </div>
             {/* Button */}
             <HeroItem>
-              <Link to="/contact" className="inline-flex items-center gap-2 bg-white text-black font-medium rounded-full hover:bg-white/90 transition-all duration-300 hover:gap-4 px-8 py-3.5">
-                Get in Touch
+              <Link to="/portfolio" className="inline-flex items-center gap-2 bg-white text-black font-medium rounded-full hover:bg-white/90 transition-all duration-300 hover:gap-4 px-8 py-3.5">
+                All Projects
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </HeroItem>
