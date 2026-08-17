@@ -40,7 +40,7 @@ const Header = () => {
   return <>
       <header className={`absolute top-0 left-0 right-0 z-50 transition-colors duration-300 ${isHomepage ? "bg-transparent" : "bg-background"}`}>
         <div className="container flex items-center justify-between h-20">
-          <Link to="/" className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${isHomepage ? "text-white" : "text-foreground"}`}>Orvexa</Link>
+          <Link to="/" className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${isHomepage ? "text-white" : "text-foreground"}`}>Marcos Alex</Link>
 
           {/* Menu Button */}
           <button onClick={() => setIsMenuOpen(true)} className={`flex items-center gap-2 font-medium tracking-wide uppercase text-sm hover:opacity-70 transition-all duration-300 ${isHomepage ? "text-white" : "text-foreground"}`} aria-label="Open menu">
@@ -60,7 +60,7 @@ const Header = () => {
           {/* Menu Header */}
           <div className="container flex items-center justify-between h-20">
             <Link to="/" className="text-2xl font-bold tracking-tight text-white" onClick={() => setIsMenuOpen(false)}>
-              Orveka
+              Marcos Alex
             </Link>
 
             <button onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 text-white font-medium tracking-wide uppercase text-sm hover:opacity-70 transition-opacity" aria-label="Close menu">
