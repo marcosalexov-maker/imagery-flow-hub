@@ -7,7 +7,7 @@ import PortfolioCard from "@/components/portfolio/PortfolioCard";
 import BlogCard from "@/components/blog/BlogCard";
 import LoadingSkeleton from "@/components/ui/loading-skeleton";
 import ProcessSlider from "@/components/ProcessSlider";
-import PricingPlans from "@/components/PricingPlans";
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { HeroContent, HeroItem, FadeUp, FadeScale, SectionHeader, StaggerContainer, StaggerItem } from "@/components/ui/scroll-animation";
 import { TypingHeading } from "@/components/ui/typing-heading";
@@ -225,9 +225,6 @@ const Index = () => {
           </StaggerContainer>
         </div>
       </section>
-
-      {/* Pricing Plans Section */}
-      <PricingPlans />
 
       {/* Our Process Section - Premium Slider */}
       <ProcessSlider />
