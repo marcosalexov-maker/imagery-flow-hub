@@ -115,13 +115,13 @@ const Index = () => {
               <Zap className="w-8 h-8 text-white" />
             </div>
             <p className="text-sm font-medium tracking-[0.3em] uppercase text-white/60 mb-4">
-              Why Us
+              ABOUT
             </p>
             <h2 className="text-4xl md:text-5xl tracking-tight mb-6 font-normal lg:text-4xl">
-              Why Partner With Us
+              Marcos Alex
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
-              See why we're the leading choice for brand innovation.
+              
             </p>
           </SectionHeader>
 
