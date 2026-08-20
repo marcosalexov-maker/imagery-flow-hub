@@ -2,13 +2,15 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import DOMPurify from "dompurify";
 import Layout from "@/components/layout/Layout";
-import { usePortfolioItem } from "@/hooks/usePortfolio";
+import { usePortfolioItem, usePortfolioMedia } from "@/hooks/usePortfolio";
 import LoadingSkeleton from "@/components/ui/loading-skeleton";
+import ProjectMediaGallery from "@/components/portfolio/ProjectMediaGallery";
 import { HeroContent, HeroItem, FadeScale, StaggerContainer, StaggerItem } from "@/components/ui/scroll-animation";
 
 const PortfolioDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: project, isLoading, error } = usePortfolioItem(slug || "");
+  const { data: media } = usePortfolioMedia(project?.id);
 
   const categoryLabels: Record<string, string> = {
     fashion: "Fashion",
