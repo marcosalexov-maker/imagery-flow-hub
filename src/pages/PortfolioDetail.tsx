@@ -95,27 +95,32 @@ const PortfolioDetail = () => {
         </div>
       </section>
 
-      {/* Image Gallery */}
+      {/* Productions Gallery */}
       <section className="pb-24 md:pb-32">
         <div className="container">
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {images.map((image, index) => (
-              <StaggerItem key={index}>
-                <FadeScale>
-                  <div className="overflow-hidden rounded-xl h-[400px]">
-                    <img 
-                      src={image} 
-                      alt={`${project.title} - Image ${index + 1}`} 
-                      className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105" 
-                      loading={index === 0 ? "eager" : "lazy"} 
-                    />
-                  </div>
-                </FadeScale>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+          {media && media.length > 0 ? (
+            <ProjectMediaGallery media={media} projectTitle={project.title} />
+          ) : (
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {images.map((image, index) => (
+                <StaggerItem key={index}>
+                  <FadeScale>
+                    <div className="overflow-hidden rounded-xl h-[400px]">
+                      <img 
+                        src={image} 
+                        alt={`${project.title} - Image ${index + 1}`} 
+                        className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105" 
+                        loading={index === 0 ? "eager" : "lazy"} 
+                      />
+                    </div>
+                  </FadeScale>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          )}
         </div>
       </section>
+
     </Layout>
   );
 };
