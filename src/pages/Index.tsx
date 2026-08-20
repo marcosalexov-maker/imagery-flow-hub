@@ -93,13 +93,9 @@ const Index = () => {
             </div>
           </FadeUp>
 
-          {portfolioLoading ? <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[...Array(2)].map((_, i) => <LoadingSkeleton key={i} variant="card" />)}
-            </div> : featuredPortfolio.length > 0 ? <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {featuredPortfolio.map(project => <StaggerItem key={project.id}>
-                  <PortfolioCard project={project} />
-                </StaggerItem>)}
-            </StaggerContainer> : <div className="text-center py-20 text-muted-foreground">
+          {portfolioLoading ? <div className="aspect-video w-full rounded-2xl md:rounded-3xl bg-muted animate-pulse" /> : featuredPortfolio.length > 0 ? <FadeUp>
+              <PortfolioSlider projects={featuredPortfolio} />
+            </FadeUp> : <div className="text-center py-20 text-muted-foreground">
               <p>No portfolio items yet. Add some in Lovable Cloud.</p>
             </div>}
         </div>
