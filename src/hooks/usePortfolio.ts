@@ -33,3 +33,21 @@ export const usePortfolioItem = (slug: string) => {
     enabled: !!slug,
   });
 };
+
+export const usePortfolioMedia = (projectId?: string) => {
+  return useQuery({
+    queryKey: ["portfolio-media", projectId],
+    queryFn: async (): Promise<Tables<"portfolio_media">[]> => {
+      const { data, error } = await supabase
+        .from("portfolio_media")
+        .select("*")
+        .eq("project_id", projectId!)
+        .order("sort_order", { ascending: true })
+        .order("created_at", { ascending: true });
+
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!projectId,
+  });
+};
