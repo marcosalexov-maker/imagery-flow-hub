@@ -125,6 +125,53 @@ export type Database = {
         }
         Relationships: []
       }
+      portfolio_media: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          media_type: string
+          poster_url: string | null
+          project_id: string
+          sort_order: number
+          title: string | null
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          media_type?: string
+          poster_url?: string | null
+          project_id: string
+          sort_order?: number
+          title?: string | null
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          media_type?: string
+          poster_url?: string | null
+          project_id?: string
+          sort_order?: number
+          title?: string | null
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portfolio_media_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "portfolio"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       site_settings: {
         Row: {
           created_at: string
