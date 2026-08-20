@@ -3,7 +3,7 @@ import { ArrowRight, Zap, Users, Palette, Eye, Sparkles, BarChart3, ClipboardChe
 import Layout from "@/components/layout/Layout";
 import { usePortfolioList } from "@/hooks/usePortfolio";
 import { useBlogList } from "@/hooks/useBlog";
-import PortfolioCard from "@/components/portfolio/PortfolioCard";
+import PortfolioSlider from "@/components/portfolio/PortfolioSlider";
 import BlogCard from "@/components/blog/BlogCard";
 import LoadingSkeleton from "@/components/ui/loading-skeleton";
 import ProcessSlider from "@/components/ProcessSlider";
@@ -35,7 +35,7 @@ const Index = () => {
     data: blog,
     isLoading: blogLoading
   } = useBlogList();
-  const featuredPortfolio = portfolio?.slice(0, 4) || [];
+  const featuredPortfolio = portfolio?.slice(0, 6) || [];
   const featuredBlog = blog?.slice(0, 3) || [];
   return <Layout hasHero>
       {/* Hero Section */}
@@ -93,13 +93,9 @@ const Index = () => {
             </div>
           </FadeUp>
 
-          {portfolioLoading ? <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[...Array(2)].map((_, i) => <LoadingSkeleton key={i} variant="card" />)}
-            </div> : featuredPortfolio.length > 0 ? <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {featuredPortfolio.map(project => <StaggerItem key={project.id}>
-                  <PortfolioCard project={project} />
-                </StaggerItem>)}
-            </StaggerContainer> : <div className="text-center py-20 text-muted-foreground">
+          {portfolioLoading ? <div className="aspect-video w-full rounded-2xl md:rounded-3xl bg-muted animate-pulse" /> : featuredPortfolio.length > 0 ? <FadeUp>
+              <PortfolioSlider projects={featuredPortfolio} />
+            </FadeUp> : <div className="text-center py-20 text-muted-foreground">
               <p>No portfolio items yet. Add some in Lovable Cloud.</p>
             </div>}
         </div>

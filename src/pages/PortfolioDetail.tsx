@@ -2,13 +2,15 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import DOMPurify from "dompurify";
 import Layout from "@/components/layout/Layout";
-import { usePortfolioItem } from "@/hooks/usePortfolio";
+import { usePortfolioItem, usePortfolioMedia } from "@/hooks/usePortfolio";
 import LoadingSkeleton from "@/components/ui/loading-skeleton";
+import ProjectMediaGallery from "@/components/portfolio/ProjectMediaGallery";
 import { HeroContent, HeroItem, FadeScale, StaggerContainer, StaggerItem } from "@/components/ui/scroll-animation";
 
 const PortfolioDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: project, isLoading, error } = usePortfolioItem(slug || "");
+  const { data: media } = usePortfolioMedia(project?.id);
 
   const categoryLabels: Record<string, string> = {
     fashion: "Fashion",
@@ -93,27 +95,32 @@ const PortfolioDetail = () => {
         </div>
       </section>
 
-      {/* Image Gallery */}
+      {/* Productions Gallery */}
       <section className="pb-24 md:pb-32">
         <div className="container">
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {images.map((image, index) => (
-              <StaggerItem key={index}>
-                <FadeScale>
-                  <div className="overflow-hidden rounded-xl h-[400px]">
-                    <img 
-                      src={image} 
-                      alt={`${project.title} - Image ${index + 1}`} 
-                      className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105" 
-                      loading={index === 0 ? "eager" : "lazy"} 
-                    />
-                  </div>
-                </FadeScale>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+          {media && media.length > 0 ? (
+            <ProjectMediaGallery media={media} projectTitle={project.title} />
+          ) : (
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {images.map((image, index) => (
+                <StaggerItem key={index}>
+                  <FadeScale>
+                    <div className="overflow-hidden rounded-xl h-[400px]">
+                      <img 
+                        src={image} 
+                        alt={`${project.title} - Image ${index + 1}`} 
+                        className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105" 
+                        loading={index === 0 ? "eager" : "lazy"} 
+                      />
+                    </div>
+                  </FadeScale>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          )}
         </div>
       </section>
+
     </Layout>
   );
 };
