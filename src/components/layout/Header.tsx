@@ -38,7 +38,7 @@ const Header = () => {
     };
   }, [isMenuOpen]);
   return <>
-      <header className={`absolute top-0 left-0 right-0 z-50 transition-colors duration-300 ${isHomepage ? "bg-transparent" : "bg-background"}`}>
+      <header className={`absolute top-0 left-0 right-0 z-50 transition-colors duration-300 ${isHomepage ? "bg-black" : "bg-background"}`}>
         <div className="container flex items-center justify-between h-20">
           <Link to="/" className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${isHomepage ? "text-white" : "text-foreground"}`}>Marcos Alex</Link>
 
