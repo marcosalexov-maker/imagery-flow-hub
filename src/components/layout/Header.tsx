@@ -39,7 +39,7 @@ const Header = () => {
   }, [isMenuOpen]);
   return <>
       <header className={`absolute top-0 left-0 right-0 z-50 transition-colors duration-300 ${isHomepage ? "bg-black" : "bg-background"}`}>
-        <div className="container flex items-center justify-between h-20">
+        <div className="container flex items-center justify-between h-16">
           <Link to="/" className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${isHomepage ? "text-white" : "text-foreground"}`}>Marcos Alex</Link>
 
           {/* Menu Button */}
@@ -58,7 +58,7 @@ const Header = () => {
         {/* Menu Content */}
         <div className={`relative z-10 h-full flex flex-col transition-transform duration-500 ease-out ${isMenuOpen ? "translate-y-0" : "-translate-y-8"}`}>
           {/* Menu Header */}
-          <div className="container flex items-center justify-between h-20">
+          <div className="container flex items-center justify-between h-16">
             <Link to="/" className="text-2xl font-bold tracking-tight text-white" onClick={() => setIsMenuOpen(false)}>
               Marcos Alex
             </Link>
