@@ -39,7 +39,7 @@ const Index = () => {
   const featuredBlog = blog?.slice(0, 3) || [];
   return <Layout hasHero>
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         {/* Background Slider (imagens e/ou vídeos) */}
         <HeroSlider />
 
