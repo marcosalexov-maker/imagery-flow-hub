@@ -5,8 +5,9 @@ const Header = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Detect if on homepage
+  // Detect if on homepage or project detail page
   const isHomepage = location.pathname === "/";
+  const isProjectPage = location.pathname.startsWith("/portfolio/");
   const navLinks = [{
     href: "/",
     label: "Home"
