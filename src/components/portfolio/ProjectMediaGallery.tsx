@@ -24,7 +24,18 @@ const ProjectMediaGallery = ({ media, projectTitle }: ProjectMediaGalleryProps) 
           <StaggerItem key={item.id}>
             <FadeScale>
               <figure className="space-y-3">
-                {item.media_type === "video" ? (
+                {item.media_type === "youtube" || getYouTubeId(item.url) ? (
+                  <div className="overflow-hidden rounded-xl aspect-video bg-black">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${getYouTubeId(item.url)}`}
+                      title={item.title || projectTitle}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-full h-full border-0"
+                    />
+                  </div>
+                ) : item.media_type === "video" ? (
                   <div className="overflow-hidden rounded-xl aspect-video bg-black">
                     <video
                       src={item.url}
