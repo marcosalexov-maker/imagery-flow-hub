@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { X, Play } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { FadeScale, StaggerContainer, StaggerItem } from "@/components/ui/scroll-animation";
@@ -14,66 +14,110 @@ const getYouTubeId = (url: string) => {
   return match?.[1] ?? null;
 };
 
+const isVideoItem = (item: Tables<"portfolio_media">) =>
+  item.media_type === "youtube" || item.media_type === "video" || !!getYouTubeId(item.url);
+
+const VideoEmbed = ({ item, projectTitle }: { item: Tables<"portfolio_media">; projectTitle: string }) => {
+  const youtubeId = getYouTubeId(item.url);
+
+  if (youtubeId) {
+    return (
+      <div className="overflow-hidden rounded-xl aspect-video bg-black">
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}`}
+          title={item.title || projectTitle}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          className="w-full h-full border-0"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="overflow-hidden rounded-xl aspect-video bg-black">
+      <video
+        src={item.url}
+        poster={item.poster_url ?? undefined}
+        controls
+        playsInline
+        preload="metadata"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  );
+};
+
 const ProjectMediaGallery = ({ media, projectTitle }: ProjectMediaGalleryProps) => {
   const [lightbox, setLightbox] = useState<Tables<"portfolio_media"> | null>(null);
 
+  const allVideos = useMemo(() => media.length > 0 && media.every(isVideoItem), [media]);
+
   return (
     <>
-      <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {media.map((item, index) => (
-          <StaggerItem key={item.id}>
-            <FadeScale>
-              <figure className="space-y-3">
-                {item.media_type === "youtube" || getYouTubeId(item.url) ? (
-                  <div className="overflow-hidden rounded-xl aspect-video bg-black">
-                    <iframe
-                      src={`https://www.youtube.com/embed/${getYouTubeId(item.url)}`}
-                      title={item.title || projectTitle}
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      className="w-full h-full border-0"
-                    />
+      {allVideos ? (
+        <StaggerContainer className="flex flex-col gap-16 md:gap-24">
+          {media.map((item, index) => (
+            <StaggerItem key={item.id}>
+              <FadeScale>
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+                  <div className="lg:col-span-3">
+                    <VideoEmbed item={item} projectTitle={projectTitle} />
                   </div>
-                ) : item.media_type === "video" ? (
-                  <div className="overflow-hidden rounded-xl aspect-video bg-black">
-                    <video
-                      src={item.url}
-                      poster={item.poster_url ?? undefined}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setLightbox(item)}
-                    className="relative block w-full overflow-hidden rounded-xl aspect-video group"
-                    aria-label={`Open ${item.title || projectTitle} full screen`}
-                  >
-                    <img
-                      src={item.url}
-                      alt={item.caption || item.title || `${projectTitle} - ${index + 1}`}
-                      className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                      loading={index === 0 ? "eager" : "lazy"}
-                    />
-                    {(item.title || item.caption) && (
-                      <div className="absolute inset-0 flex flex-col justify-end p-6 text-left bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-500">
-                        {item.title && (
-                          <p className="text-base font-medium tracking-tight text-white">{item.title}</p>
-                        )}
-                        {item.caption && (
-                          <p className="text-sm leading-relaxed text-white/80 mt-1">{item.caption}</p>
-                        )}
-                      </div>
+                  <div className="lg:col-span-2 flex flex-col justify-center">
+                    {item.title && (
+                      <h3 className="text-2xl md:text-3xl tracking-tight font-normal text-white mb-4 flex items-center gap-3">
+                        <Play className="w-5 h-5 text-white/70" />
+                        {item.title}
+                      </h3>
                     )}
-                  </button>
-                )}
+                    {item.caption && (
+                      <p className="text-base md:text-lg leading-relaxed text-white/80">
+                        {item.caption}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </FadeScale>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+      ) : (
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {media.map((item, index) => (
+            <StaggerItem key={item.id}>
+              <FadeScale>
+                <figure className="space-y-3">
+                  {isVideoItem(item) ? (
+                    <VideoEmbed item={item} projectTitle={projectTitle} />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setLightbox(item)}
+                      className="relative block w-full overflow-hidden rounded-xl aspect-video group"
+                      aria-label={`Open ${item.title || projectTitle} full screen`}
+                    >
+                      <img
+                        src={item.url}
+                        alt={item.caption || item.title || `${projectTitle} - ${index + 1}`}
+                        className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        loading={index === 0 ? "eager" : "lazy"}
+                      />
+                      {(item.title || item.caption) && (
+                        <div className="absolute inset-0 flex flex-col justify-end p-6 text-left bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-500">
+                          {item.title && (
+                            <p className="text-base font-medium tracking-tight text-white">{item.title}</p>
+                          )}
+                          {item.caption && (
+                            <p className="text-sm leading-relaxed text-white/80 mt-1">{item.caption}</p>
+                          )}
+                        </div>
+                      )}
+                    </button>
+                  )}
 
-                {(item.media_type === "video" || item.media_type === "youtube" || getYouTubeId(item.url)) &&
-                  (item.title || item.caption) && (
+                  {isVideoItem(item) && (item.title || item.caption) && (
                     <figcaption className="space-y-1">
                       {item.title && (
                         <p className="text-base font-medium tracking-tight flex items-center gap-2">
@@ -84,11 +128,12 @@ const ProjectMediaGallery = ({ media, projectTitle }: ProjectMediaGalleryProps) 
                       {item.caption && <p className="text-sm text-muted-foreground leading-relaxed">{item.caption}</p>}
                     </figcaption>
                   )}
-              </figure>
-            </FadeScale>
-          </StaggerItem>
-        ))}
-      </StaggerContainer>
+                </figure>
+              </FadeScale>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+      )}
 
       <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
         <DialogContent className="max-w-6xl border-none bg-transparent p-0 shadow-none">
