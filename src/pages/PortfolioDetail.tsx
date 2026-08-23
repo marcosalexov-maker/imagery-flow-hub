@@ -35,8 +35,14 @@ const PortfolioDetail = () => {
 
   const { videos, photos } = useMemo(() => {
     const list = media ?? [];
+    const videoList = list.filter(isVideoMedia);
+    const sortedVideos = [...videoList].sort((a, b) => {
+      if (a.title === "Roma - La Conquista - Travel Video") return -1;
+      if (b.title === "Roma - La Conquista - Travel Video") return 1;
+      return 0;
+    });
     return {
-      videos: list.filter(isVideoMedia),
+      videos: sortedVideos,
       photos: list.filter((item) => !isVideoMedia(item)),
     };
   }, [media]);
