@@ -145,7 +145,7 @@ const PortfolioDetail = () => {
               {project.description && (
                 <HeroItem>
                   <div
-                    className="max-w-3xl prose-editorial"
+                    className="max-w-3xl prose-editorial text-white"
                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(project.description) }}
                   />
                 </HeroItem>
