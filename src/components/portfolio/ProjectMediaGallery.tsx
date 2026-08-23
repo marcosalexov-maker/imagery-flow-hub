@@ -61,7 +61,7 @@ const ProjectMediaGallery = ({ media, projectTitle }: ProjectMediaGalleryProps) 
           {media.map((item, index) => (
             <StaggerItem key={item.id}>
               <FadeScale>
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
                   <div className="lg:col-span-3">
                     <VideoEmbed item={item} projectTitle={projectTitle} />
                   </div>
