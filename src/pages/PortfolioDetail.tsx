@@ -88,7 +88,7 @@ const PortfolioDetail = () => {
   const cover = project.preview_image_1;
 
   return (
-    <Layout>
+    <Layout hasHero={true}>
       <div className="dark bg-background text-foreground" style={darkScope}>
         {/* Cover */}
         {cover && (
