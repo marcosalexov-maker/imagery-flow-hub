@@ -9,6 +9,11 @@ interface ProjectMediaGalleryProps {
   projectTitle: string;
 }
 
+const getYouTubeId = (url: string) => {
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+  return match?.[1] ?? null;
+};
+
 const ProjectMediaGallery = ({ media, projectTitle }: ProjectMediaGalleryProps) => {
   const [lightbox, setLightbox] = useState<Tables<"portfolio_media"> | null>(null);
 
