@@ -50,29 +50,40 @@ const ProjectMediaGallery = ({ media, projectTitle }: ProjectMediaGalleryProps) 
                   <button
                     type="button"
                     onClick={() => setLightbox(item)}
-                    className="block w-full overflow-hidden rounded-xl aspect-video group"
+                    className="relative block w-full overflow-hidden rounded-xl aspect-video group"
                     aria-label={`Open ${item.title || projectTitle} full screen`}
                   >
                     <img
                       src={item.url}
-                      alt={item.title || `${projectTitle} - ${index + 1}`}
+                      alt={item.caption || item.title || `${projectTitle} - ${index + 1}`}
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                       loading={index === 0 ? "eager" : "lazy"}
                     />
+                    {(item.title || item.caption) && (
+                      <div className="absolute inset-0 flex flex-col justify-end p-6 text-left bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-500">
+                        {item.title && (
+                          <p className="text-base font-medium tracking-tight text-white">{item.title}</p>
+                        )}
+                        {item.caption && (
+                          <p className="text-sm leading-relaxed text-white/80 mt-1">{item.caption}</p>
+                        )}
+                      </div>
+                    )}
                   </button>
                 )}
 
-                {(item.title || item.caption) && (
-                  <figcaption className="space-y-1">
-                    {item.title && (
-                      <p className="text-base font-medium tracking-tight flex items-center gap-2">
-                        {item.media_type === "video" && <Play className="w-4 h-4 text-muted-foreground" />}
-                        {item.title}
-                      </p>
-                    )}
-                    {item.caption && <p className="text-sm text-muted-foreground leading-relaxed">{item.caption}</p>}
-                  </figcaption>
-                )}
+                {(item.media_type === "video" || item.media_type === "youtube" || getYouTubeId(item.url)) &&
+                  (item.title || item.caption) && (
+                    <figcaption className="space-y-1">
+                      {item.title && (
+                        <p className="text-base font-medium tracking-tight flex items-center gap-2">
+                          {item.media_type === "video" && <Play className="w-4 h-4 text-muted-foreground" />}
+                          {item.title}
+                        </p>
+                      )}
+                      {item.caption && <p className="text-sm text-muted-foreground leading-relaxed">{item.caption}</p>}
+                    </figcaption>
+                  )}
               </figure>
             </FadeScale>
           </StaggerItem>
