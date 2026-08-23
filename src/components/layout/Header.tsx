@@ -39,12 +39,12 @@ const Header = () => {
     };
   }, [isMenuOpen]);
   return <>
-      <header className={`absolute top-0 left-0 right-0 z-50 transition-colors duration-300 ${isHomepage ? "bg-transparent" : "bg-background"}`}>
+      <header className={`absolute top-0 left-0 right-0 z-50 transition-colors duration-300 ${isHomepage ? "bg-transparent" : isProjectPage ? "bg-black" : "bg-background"}`}>
         <div className="container flex items-center justify-between h-16">
-          <Link to="/" className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${isHomepage ? "text-white" : "text-foreground"}`}>Marcos Alex</Link>
+          <Link to="/" className={`text-2xl font-bold tracking-tight leading-none transition-colors duration-300 ${isHomepage || isProjectPage ? "text-white" : "text-foreground"}`}>Marcos Alex</Link>
 
           {/* Menu Button */}
-          <button onClick={() => setIsMenuOpen(true)} className={`flex items-center gap-2 font-medium tracking-wide uppercase text-sm hover:opacity-70 transition-all duration-300 ${isHomepage ? "text-white" : "text-foreground"}`} aria-label="Open menu">
+          <button onClick={() => setIsMenuOpen(true)} className={`flex items-center gap-2 font-medium tracking-wide uppercase text-sm leading-none hover:opacity-70 transition-all duration-300 ${isHomepage || isProjectPage ? "text-white" : "text-foreground"}`} aria-label="Open menu">
             <span>Menu</span>
             
           </button>
