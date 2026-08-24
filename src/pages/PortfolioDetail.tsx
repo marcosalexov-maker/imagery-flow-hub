@@ -125,7 +125,7 @@ const PortfolioDetail = () => {
         )}
 
         {/* Description */}
-        <section className={cover ? "pt-12 md:pt-16" : "py-16 md:py-24"}>
+        <section className={cover ? "pt-6 md:pt-8" : "py-16 md:py-24"}>
           <div className="container">
             <HeroContent>
               {!cover && (
