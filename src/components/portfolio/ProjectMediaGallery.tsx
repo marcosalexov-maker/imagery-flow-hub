@@ -67,13 +67,13 @@ const ProjectMediaGallery = ({ media, projectTitle }: ProjectMediaGalleryProps) 
                   </div>
                   <div className="lg:col-span-2 flex flex-col justify-center">
                     {item.title && (
-                      <h3 className="text-2xl md:text-3xl tracking-tight font-normal text-white mb-4 flex items-center gap-3">
+                      <h3 className="text-xl md:text-2xl tracking-tight font-normal text-white mb-3 flex items-center gap-3">
                         <Play className="w-5 h-5 text-white/70" />
                         {item.title}
                       </h3>
                     )}
                     {item.caption && (
-                      <p className="text-base md:text-lg leading-relaxed text-white/80">
+                      <p className="text-sm md:text-base leading-relaxed text-white/80">
                         {item.caption}
                       </p>
                     )}

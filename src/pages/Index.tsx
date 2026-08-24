@@ -75,7 +75,7 @@ const Index = () => {
       </section>
 
       {/* Featured Portfolio */}
-      <section className="py-24 md:py-32">
+      <section className="pt-12 md:pt-16 pb-24 md:pb-32">
         <div className="container">
           <FadeUp>
             <div className="flex items-end justify-between mb-12">
@@ -93,7 +93,7 @@ const Index = () => {
             </div>
           </FadeUp>
 
-          {portfolioLoading ? <div className="aspect-video w-full rounded-2xl md:rounded-3xl bg-muted animate-pulse" /> : featuredPortfolio.length > 0 ? <FadeUp>
+          {portfolioLoading ? <div className="aspect-[4/5] w-[65%] sm:w-[48%] lg:w-[38%] xl:w-[32%] rounded-3xl bg-muted animate-pulse" /> : featuredPortfolio.length > 0 ? <FadeUp>
               <PortfolioSlider projects={featuredPortfolio} />
             </FadeUp> : <div className="text-center py-20 text-muted-foreground">
               <p>No portfolio items yet. Add some in Lovable Cloud.</p>
