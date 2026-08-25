@@ -94,17 +94,17 @@ const Index = () => {
           </SectionHeader>
 
           {/* Features Grid */}
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* Seamless Collaboration */}
             <StaggerItem>
-              <div className="group p-8 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-6">
+              <div className="group p-6 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
                   <Users className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xs font-medium tracking-wider uppercase text-white/50 mb-2 block">
                   EXPERIENCE
                 </span>
-                <h3 className="text-xl mb-3 font-normal">Seamless Experience</h3>
+                <h3 className="text-xl mb-2 font-normal">Seamless Experience</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
                   Delivered 50+ projects driving tangible results for companies
                 </p>
@@ -113,14 +113,14 @@ const Index = () => {
 
             {/* Design Solutions */}
             <StaggerItem>
-              <div className="group p-8 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-6">
+              <div className="group p-6 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
                   <Palette className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xs font-medium tracking-wider uppercase text-white/50 mb-2 block">
                   Design
                 </span>
-                <h3 className="text-xl mb-3 font-normal">Design Solutions</h3>
+                <h3 className="text-xl mb-2 font-normal">Design Solutions</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
                   Improved 30+ user experiences for satisfaction.
                 </p>
@@ -129,14 +129,14 @@ const Index = () => {
 
             {/* Boosted Brand Visibility */}
             <StaggerItem>
-              <div className="group p-8 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-6">
+              <div className="group p-6 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
                   <Eye className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xs font-medium tracking-wider uppercase text-white/50 mb-2 block">
                   STORYTELLING
                 </span>
-                <h3 className="text-xl mb-3 font-normal">Visual Storytelling</h3>
+                <h3 className="text-xl mb-2 font-normal">Visual Storytelling</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
                   95% customer satisfaction rate
                 </p>
@@ -145,14 +145,14 @@ const Index = () => {
 
             {/* Brand Impact */}
             <StaggerItem>
-              <div className="group p-8 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-6">
+              <div className="group p-6 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xs font-medium tracking-wider uppercase text-white/50 mb-2 block">
                   Impact
                 </span>
-                <h3 className="text-xl mb-3 font-normal">Brand Impact</h3>
+                <h3 className="text-xl mb-2 font-normal">Brand Impact</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
                   Creating memorable brand experiences that resonate with audiences
                 </p>
@@ -161,14 +161,14 @@ const Index = () => {
 
             {/* Data-Driven Insights */}
             <StaggerItem>
-              <div className="group p-8 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-6">
+              <div className="group p-6 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
                   <BarChart3 className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xs font-medium tracking-wider uppercase text-white/50 mb-2 block">
                   QUALITY
                 </span>
-                <h3 className="text-xl mb-3 font-normal">Uncompromising Quality</h3>
+                <h3 className="text-xl mb-2 font-normal">Uncompromising Quality</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
                   Analyzed user behavior for a 25% engagement boost.
                 </p>
@@ -177,14 +177,14 @@ const Index = () => {
 
             {/* Agile Management */}
             <StaggerItem>
-              <div className="group p-8 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-6">
+              <div className="group p-6 rounded-4xl bg-white/5 hover:bg-white/10 transition-all duration-500">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
                   <ClipboardCheck className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xs font-medium tracking-wider uppercase text-white/50 mb-2 block">
                   Management
                 </span>
-                <h3 className="text-xl mb-3 font-normal">Agile Management</h3>
+                <h3 className="text-xl mb-2 font-normal">Agile Management</h3>
                 <p className="text-white/60 text-sm leading-relaxed">
                   Led teams to achieve milestones early.
                 </p>
