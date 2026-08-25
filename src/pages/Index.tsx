@@ -50,10 +50,10 @@ const Index = () => {
       </section>
 
       {/* Featured Portfolio */}
-      <section className="bg-black text-white py-16 md:py-20">
+      <section className="bg-black text-white pt-12 md:pt-16 pb-10 md:pb-12">
         <div className="container">
           <FadeUp>
-            <div className="flex items-end justify-between mb-8">
+            <div className="flex items-end justify-between mb-6">
               <div>
                 <p className="text-sm font-medium tracking-[0.2em] uppercase text-white/60 mb-2">
                   Selected Work
@@ -77,18 +77,18 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-16 md:py-20 bg-black text-white">
+      <section className="pt-8 md:pt-10 pb-12 md:pb-16 bg-black text-white">
         <div className="container">
           {/* Section Header */}
-          <SectionHeader className="text-center mb-10">
+          <SectionHeader className="text-center mb-8">
             {/* Lightning Icon */}
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 mb-4">
               <Zap className="w-8 h-8 text-white" />
             </div>
-            <p className="text-sm font-medium tracking-[0.3em] uppercase text-white/60 mb-4">
+            <p className="text-sm font-medium tracking-[0.3em] uppercase text-white/60 mb-3">
               ABOUT
             </p>
-            <h2 className="text-4xl md:text-5xl tracking-tight mb-4 font-normal lg:text-4xl">
+            <h2 className="text-4xl md:text-5xl tracking-tight mb-3 font-normal lg:text-4xl">
               Marcos Alex
             </h2>
           </SectionHeader>
