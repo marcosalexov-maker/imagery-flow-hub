@@ -69,79 +69,28 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+    if (formData.website) return; // Honeypot
+
     setIsSubmitting(true);
-    
-    try {
-      // Use edge function with rate limiting and server-side validation
-      const { data, error } = await supabase.functions.invoke<SubmitContactResponse>('submit-contact', {
-        body: {
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          subject: formData.subject.trim(),
-          message: formData.message.trim(),
-          website: formData.website, // Honeypot field
-        },
-      });
 
-      setIsSubmitting(false);
+    const body = `Nome: ${formData.name.trim()}\nE-mail: ${formData.email.trim()}\n\n${formData.message.trim()}`;
+    const mailto = `mailto:${contactEmail}?subject=${encodeURIComponent(
+      formData.subject.trim(),
+    )}&body=${encodeURIComponent(body)}`;
 
-      if (error) {
-        toast({
-          title: "Error",
-          description: "Failed to send message. Please try again.",
-          variant: "destructive",
-        });
-        return;
-      }
+    window.location.href = mailto;
 
-      // Handle rate limiting
-      if (data?.error === 'Too many requests. Please try again later.') {
-        toast({
-          title: "Too Many Requests",
-          description: "You've reached the limit. Please try again in an hour.",
-          variant: "destructive",
-        });
-        return;
-      }
+    setIsSubmitting(false);
+    setIsSubmitted(true);
 
-      // Handle validation errors from server
-      if (data?.errors) {
-        setErrors(data.errors);
-        toast({
-          title: "Validation Error",
-          description: "Please check the form and try again.",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      if (data?.error) {
-        toast({
-          title: "Error",
-          description: data.error,
-          variant: "destructive",
-        });
-        return;
-      }
-
-      setIsSubmitted(true);
-      
-      toast({
-        title: "Message sent!",
-        description: "Thank you for reaching out. We'll get back to you soon.",
-      });
-    } catch {
-      setIsSubmitting(false);
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
-    }
+    toast({
+      title: "Message ready!",
+      description: "Your email client has been opened with your message.",
+    });
   };
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
