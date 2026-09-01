@@ -2,10 +2,10 @@ import { useState, useMemo } from "react";
 import { X, Play } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { FadeScale, StaggerContainer, StaggerItem } from "@/components/ui/scroll-animation";
-import type { Tables } from "@/integrations/supabase/types";
+import type { PortfolioMedia } from "@/data/types";
 
 interface ProjectMediaGalleryProps {
-  media: Tables<"portfolio_media">[];
+  media: PortfolioMedia[];
   projectTitle: string;
 }
 
@@ -14,10 +14,10 @@ const getYouTubeId = (url: string) => {
   return match?.[1] ?? null;
 };
 
-const isVideoItem = (item: Tables<"portfolio_media">) =>
+const isVideoItem = (item: PortfolioMedia) =>
   item.media_type === "youtube" || item.media_type === "video" || !!getYouTubeId(item.url);
 
-const VideoEmbed = ({ item, projectTitle }: { item: Tables<"portfolio_media">; projectTitle: string }) => {
+const VideoEmbed = ({ item, projectTitle }: { item: PortfolioMedia; projectTitle: string }) => {
   const youtubeId = getYouTubeId(item.url);
 
   if (youtubeId) {
@@ -50,7 +50,7 @@ const VideoEmbed = ({ item, projectTitle }: { item: Tables<"portfolio_media">; p
 };
 
 const ProjectMediaGallery = ({ media, projectTitle }: ProjectMediaGalleryProps) => {
-  const [lightbox, setLightbox] = useState<Tables<"portfolio_media"> | null>(null);
+  const [lightbox, setLightbox] = useState<PortfolioMedia | null>(null);
 
   const allVideos = useMemo(() => media.length > 0 && media.every(isVideoItem), [media]);
 

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { ArrowUpRight } from "lucide-react";
-import type { Tables } from "@/integrations/supabase/types";
+import type { BlogPost } from "@/data/types";
 interface BlogCardProps {
-  post: Tables<"blog">;
+  post: BlogPost;
 }
 const BlogCard = ({
   post
