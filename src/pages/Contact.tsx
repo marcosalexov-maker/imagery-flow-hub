@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { contactEmail } from "@/data/content";
 import { HeroContent, HeroItem, FadeUp, SectionHeader } from "@/components/ui/scroll-animation";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -20,13 +20,6 @@ const faqItems = [{
   question: "Do you offer revisions?",
   answer: "Yes. We include multiple revision rounds to ensure the final result aligns perfectly with your vision and expectations."
 }];
-
-interface SubmitContactResponse {
-  success?: boolean;
-  error?: string;
-  errors?: Record<string, string>;
-  remaining?: number;
-}
 
 const Contact = () => {
   const { toast } = useToast();
@@ -103,7 +96,7 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "hello@atelier.studio", href: "mailto:hello@atelier.studio" },
+    { icon: Mail, label: "Email", value: contactEmail, href: `mailto:${contactEmail}` },
     { icon: Phone, label: "WhatsApp", value: "+1 (555) 123-4567", href: "https://wa.me/15551234567" },
     { icon: MapPin, label: "Location", value: "New York, NY", href: null },
   ];
