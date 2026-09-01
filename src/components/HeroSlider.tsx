@@ -10,16 +10,16 @@ import { motion, AnimatePresence } from "framer-motion";
 // ou use uma URL completa em "src".
 // ============================================
 import heroBg from "@/assets/hero-bg.jpg";
-import video1 from "@/assets/v1.mp4.asset.json";
-import video2 from "@/assets/v2.mp4.asset.json";
+import video1 from "@/assets/v1.mp4";
+import video2 from "@/assets/v2.mp4";
 
 type HeroSlide =
   | { type: "image"; src: string; alt?: string }
   | { type: "video"; src: string; poster?: string };
 
 const HERO_SLIDES: HeroSlide[] = [
-  { type: "video", src: video1.url },
-  { type: "video", src: video2.url },
+  { type: "video", src: video1 },
+  { type: "video", src: video2 },
   { type: "image", src: heroBg, alt: "Apresentação da agência" },
 ];
 

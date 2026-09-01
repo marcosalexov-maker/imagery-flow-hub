@@ -1,33 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-
-interface SiteSetting {
-  id: string;
-  setting_key: string;
-  setting_value: string;
-  description: string | null;
-}
+import { siteSettings } from "@/data/content";
 
 export const useSiteSettings = () => {
-  return useQuery({
-    queryKey: ["site-settings"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("site_settings")
-        .select("*");
-
-      if (error) throw error;
-      return data as SiteSetting[];
-    },
-  });
+  return {
+    data: Object.entries(siteSettings).map(([setting_key, setting_value]) => ({
+      id: setting_key,
+      setting_key,
+      setting_value,
+      description: null as string | null,
+    })),
+    isLoading: false,
+    error: null,
+  };
 };
 
 export const useSiteSetting = (key: string, defaultValue: string = "") => {
-  const { data: settings, isLoading, error } = useSiteSettings();
-
-  const value = settings?.find((s) => s.setting_key === key)?.setting_value ?? defaultValue;
-
-  return { value, isLoading, error };
+  const value = siteSettings[key] ?? defaultValue;
+  return { value, isLoading: false, error: null };
 };
 
 // Specific hook for Cal.com URL

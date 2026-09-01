@@ -1,35 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import type { Tables } from "@/integrations/supabase/types";
+import { portfolioProjects, portfolioMedia } from "@/data/portfolio";
+import type { PortfolioProject, PortfolioMedia } from "@/data/types";
 
 export const usePortfolioList = () => {
   return useQuery({
     queryKey: ["portfolio"],
-    queryFn: async (): Promise<Tables<"portfolio">[]> => {
-      const { data, error } = await supabase
-        .from("portfolio")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) throw error;
-      return data;
-    },
+    queryFn: async (): Promise<PortfolioProject[]> => portfolioProjects,
   });
 };
 
 export const usePortfolioItem = (slug: string) => {
   return useQuery({
     queryKey: ["portfolio", slug],
-    queryFn: async (): Promise<Tables<"portfolio"> | null> => {
-      const { data, error } = await supabase
-        .from("portfolio")
-        .select("*")
-        .eq("slug", slug)
-        .maybeSingle();
-
-      if (error) throw error;
-      return data;
-    },
+    queryFn: async (): Promise<PortfolioProject | null> =>
+      portfolioProjects.find((p) => p.slug === slug) ?? null,
     enabled: !!slug,
   });
 };
@@ -37,17 +21,10 @@ export const usePortfolioItem = (slug: string) => {
 export const usePortfolioMedia = (projectId?: string) => {
   return useQuery({
     queryKey: ["portfolio-media", projectId],
-    queryFn: async (): Promise<Tables<"portfolio_media">[]> => {
-      const { data, error } = await supabase
-        .from("portfolio_media")
-        .select("*")
-        .eq("project_id", projectId!)
-        .order("sort_order", { ascending: true })
-        .order("created_at", { ascending: true });
-
-      if (error) throw error;
-      return data;
-    },
+    queryFn: async (): Promise<PortfolioMedia[]> =>
+      portfolioMedia
+        .filter((m) => m.project_id === projectId)
+        .sort((a, b) => a.sort_order - b.sort_order),
     enabled: !!projectId,
   });
 };

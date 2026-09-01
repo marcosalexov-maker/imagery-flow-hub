@@ -8,11 +8,11 @@ import { usePortfolioItem, usePortfolioMedia } from "@/hooks/usePortfolio";
 import LoadingSkeleton from "@/components/ui/loading-skeleton";
 import ProjectMediaGallery from "@/components/portfolio/ProjectMediaGallery";
 import { HeroContent, HeroItem, FadeScale, StaggerContainer, StaggerItem } from "@/components/ui/scroll-animation";
-import type { Tables } from "@/integrations/supabase/types";
+import type { PortfolioMedia } from "@/data/types";
 
 const darkScope = { "--background": "0 0% 0%" } as React.CSSProperties;
 
-const isVideoMedia = (item: Tables<"portfolio_media">) =>
+const isVideoMedia = (item: PortfolioMedia) =>
   item.media_type === "video" ||
   item.media_type === "youtube" ||
   /(?:youtu\.be\/|youtube\.com\/)/.test(item.url);

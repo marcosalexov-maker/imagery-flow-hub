@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { contactEmail } from "@/data/content";
 import { HeroContent, HeroItem, FadeUp, SectionHeader } from "@/components/ui/scroll-animation";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -20,13 +20,6 @@ const faqItems = [{
   question: "Do you offer revisions?",
   answer: "Yes. We include multiple revision rounds to ensure the final result aligns perfectly with your vision and expectations."
 }];
-
-interface SubmitContactResponse {
-  success?: boolean;
-  error?: string;
-  errors?: Record<string, string>;
-  remaining?: number;
-}
 
 const Contact = () => {
   const { toast } = useToast();
@@ -69,79 +62,28 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+    if (formData.website) return; // Honeypot
+
     setIsSubmitting(true);
-    
-    try {
-      // Use edge function with rate limiting and server-side validation
-      const { data, error } = await supabase.functions.invoke<SubmitContactResponse>('submit-contact', {
-        body: {
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          subject: formData.subject.trim(),
-          message: formData.message.trim(),
-          website: formData.website, // Honeypot field
-        },
-      });
 
-      setIsSubmitting(false);
+    const body = `Nome: ${formData.name.trim()}\nE-mail: ${formData.email.trim()}\n\n${formData.message.trim()}`;
+    const mailto = `mailto:${contactEmail}?subject=${encodeURIComponent(
+      formData.subject.trim(),
+    )}&body=${encodeURIComponent(body)}`;
 
-      if (error) {
-        toast({
-          title: "Error",
-          description: "Failed to send message. Please try again.",
-          variant: "destructive",
-        });
-        return;
-      }
+    window.location.href = mailto;
 
-      // Handle rate limiting
-      if (data?.error === 'Too many requests. Please try again later.') {
-        toast({
-          title: "Too Many Requests",
-          description: "You've reached the limit. Please try again in an hour.",
-          variant: "destructive",
-        });
-        return;
-      }
+    setIsSubmitting(false);
+    setIsSubmitted(true);
 
-      // Handle validation errors from server
-      if (data?.errors) {
-        setErrors(data.errors);
-        toast({
-          title: "Validation Error",
-          description: "Please check the form and try again.",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      if (data?.error) {
-        toast({
-          title: "Error",
-          description: data.error,
-          variant: "destructive",
-        });
-        return;
-      }
-
-      setIsSubmitted(true);
-      
-      toast({
-        title: "Message sent!",
-        description: "Thank you for reaching out. We'll get back to you soon.",
-      });
-    } catch {
-      setIsSubmitting(false);
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
-    }
+    toast({
+      title: "Message ready!",
+      description: "Your email client has been opened with your message.",
+    });
   };
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -154,7 +96,7 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail, label: "Email", value: "hello@atelier.studio", href: "mailto:hello@atelier.studio" },
+    { icon: Mail, label: "Email", value: contactEmail, href: `mailto:${contactEmail}` },
     { icon: Phone, label: "WhatsApp", value: "+1 (555) 123-4567", href: "https://wa.me/15551234567" },
     { icon: MapPin, label: "Location", value: "New York, NY", href: null },
   ];

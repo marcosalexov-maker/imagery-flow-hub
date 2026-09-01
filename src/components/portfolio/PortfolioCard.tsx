@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import type { Tables } from "@/integrations/supabase/types";
+import type { PortfolioProject } from "@/data/types";
 
 interface PortfolioCardProps {
-  project: Tables<"portfolio">;
+  project: PortfolioProject;
 }
 
 const PortfolioCard = ({ project }: PortfolioCardProps) => {
