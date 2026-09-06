@@ -57,7 +57,7 @@ const TestimonialsSection = () => {
                     ))}
                   </div>
                   <h3 className="text-lg mb-3 font-normal">
-                    "{testimonial.quote}"
+                    "{testimonial.name}"
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                     {testimonial.quote}
