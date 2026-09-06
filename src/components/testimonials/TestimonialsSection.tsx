@@ -60,7 +60,7 @@ const TestimonialsSection = () => {
                     "{testimonial.name}"
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                    {testimonial.testimonial_text}
+                    {testimonial.quote}
                   </p>
                   <div className="flex items-center gap-3">
                     {testimonial.avatar_url ? (
@@ -82,7 +82,7 @@ const TestimonialsSection = () => {
                     <div>
                       <span className="font-medium block">{testimonial.name}</span>
                       <span className="text-sm text-muted-foreground">
-                        @{testimonial.role_or_company}
+                        @{[testimonial.role, testimonial.company].filter(Boolean).join(" · ") || "Client"}
                       </span>
                     </div>
                   </div>
