@@ -57,10 +57,10 @@ const TestimonialsSection = () => {
                     ))}
                   </div>
                   <h3 className="text-lg mb-3 font-normal">
-                    "{testimonial.name}"
+                    "{testimonial.quote}"
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                    {testimonial.testimonial_text}
+                    {testimonial.quote}
                   </p>
                   <div className="flex items-center gap-3">
                     {testimonial.avatar_url ? (
