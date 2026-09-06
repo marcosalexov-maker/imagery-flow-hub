@@ -82,7 +82,7 @@ const TestimonialsSection = () => {
                     <div>
                       <span className="font-medium block">{testimonial.name}</span>
                       <span className="text-sm text-muted-foreground">
-                        @{testimonial.role_or_company}
+                        @{[testimonial.role, testimonial.company].filter(Boolean).join(" · ") || "Client"}
                       </span>
                     </div>
                   </div>
