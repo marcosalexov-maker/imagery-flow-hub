@@ -2,30 +2,38 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ============================================
-// 🎬 HERO SLIDES - EASY TO CHANGE (max 4 items)
-// type: "image" | "video"
-// image: { type: "image", src: minhaImagem, alt: "descrição" }
-// video: { type: "video", src: meuVideo, poster: capaOpcional }
-// Coloque os arquivos em src/assets/ e importe acima,
-// ou use uma URL completa em "src".
+// 🎬 HERO SLIDES — ordem de exibição
+// 1) vídeo de capa  2) auto retrato  3) uruguai  4) foto p&b
+// Para trocar: coloque o arquivo em src/assets/hero/ e ajuste a lista.
 // ============================================
-import heroBg from "@/assets/hero-bg.jpg";
-import video1 from "@/assets/v1.mp4";
-import video2 from "@/assets/v2.mp4";
+import heroVideo from "@/assets/hero/hero-1.mp4";
+import heroPoster from "@/assets/hero/hero-1-poster.jpg";
+import heroImg2 from "@/assets/hero/hero-2.jpg";
+import heroImg3 from "@/assets/hero/hero-3.jpg";
+import heroImg4 from "@/assets/hero/hero-4.jpg";
 
 type HeroSlide =
   | { type: "image"; src: string; alt?: string }
   | { type: "video"; src: string; poster?: string };
 
 const HERO_SLIDES: HeroSlide[] = [
-  { type: "video", src: video1 },
-  { type: "video", src: video2 },
-  { type: "image", src: heroBg, alt: "Apresentação da agência" },
+  { type: "video", src: heroVideo, poster: heroPoster },
+  { type: "image", src: heroImg2, alt: "Auto retrato" },
+  { type: "image", src: heroImg3, alt: "Uruguai" },
+  { type: "image", src: heroImg4, alt: "Registro em preto e branco" },
 ];
 
 const SLIDES = HERO_SLIDES.slice(0, 4);
 const IMAGE_DURATION = 6000;
 const MAX_VIDEO_DURATION = 20000;
+
+// Movimento discreto alternado para as imagens
+const MOTION_VARIANTS = [
+  { from: { scale: 1.08, x: "-1%" }, to: { scale: 1.0, x: "0%" } },
+  { from: { scale: 1.0, x: "1.5%" }, to: { scale: 1.08, x: "-0.5%" } },
+  { from: { scale: 1.06, x: "1%" }, to: { scale: 1.0, x: "-1%" } },
+  { from: { scale: 1.0, x: "-1.5%" }, to: { scale: 1.07, x: "0.5%" } },
+];
 
 const HeroSlider = () => {
   const [current, setCurrent] = useState(0);
@@ -47,7 +55,7 @@ const HeroSlider = () => {
     return () => clearTimeout(timer);
   }, [current, next, prefersReducedMotion]);
 
-  // Play active video, reset the others
+  // Play active video, pause the others
   useEffect(() => {
     Object.entries(videoRefs.current).forEach(([key, el]) => {
       if (!el) return;
@@ -61,20 +69,25 @@ const HeroSlider = () => {
   }, [current, prefersReducedMotion]);
 
   const slide = SLIDES[current];
+  const move = MOTION_VARIANTS[current % MOTION_VARIANTS.length];
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden bg-black">
       <AnimatePresence initial={false} mode="sync">
         <motion.div
           key={current}
           className="absolute inset-0"
-          initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 1.06 }}
+          initial={{
+            opacity: 0,
+            ...(prefersReducedMotion ? {} : move.from),
+          }}
           animate={{
             opacity: 1,
-            scale: prefersReducedMotion ? 1 : 1.0,
+            ...(prefersReducedMotion ? {} : move.to),
             transition: {
               opacity: { duration: 1.1, ease: "easeInOut" },
-              scale: { duration: 8, ease: "linear" },
+              scale: { duration: 9, ease: "linear" },
+              x: { duration: 9, ease: "linear" },
             },
           }}
           exit={{ opacity: 0, transition: { duration: 1.1, ease: "easeInOut" } }}
@@ -89,8 +102,9 @@ const HeroSlider = () => {
               className="w-full h-full object-cover"
               muted
               playsInline
+              autoPlay
               loop={SLIDES.length === 1}
-              preload="metadata"
+              preload="auto"
               onEnded={SLIDES.length > 1 ? next : undefined}
             />
           ) : (
@@ -98,6 +112,8 @@ const HeroSlider = () => {
               src={slide.src}
               alt={slide.alt ?? ""}
               className="w-full h-full object-cover"
+              loading={current === 0 ? "eager" : "lazy"}
+              decoding="async"
             />
           )}
         </motion.div>
