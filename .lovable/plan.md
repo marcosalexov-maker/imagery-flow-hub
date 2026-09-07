@@ -1,31 +1,38 @@
-# Hero com imagens e um vídeo
+# Hero: 1 vídeo + 3 imagens com movimento suave
 
-## Proposta
+## Sequência definida
 
-- Manter o slider atual da página inicial, mas organizar a sequência com **até 3 imagens e 1 vídeo curto**.
-- Aplicar às imagens um movimento cinematográfico discreto, alternando zoom lento e leve deslocamento para evitar repetição visual.
-- Usar transição suave em fade entre todos os itens, sem mudanças bruscas no enquadramento.
-- Preservar o fundo escuro sobre a mídia para manter o título, subtítulo e botão legíveis.
-- O vídeo será reproduzido sem som, sem controles e diretamente no fundo; ao terminar, o slider avança para o próximo item.
-- Manter os indicadores discretos para navegação manual.
+1. Vídeo de capa (enviado agora)
+2. Auto retrato
+3. Uruguai
+4. Foto PB
+
+O slider inicia sempre pelo vídeo e segue nessa ordem, em ciclo.
+
+## Comportamento
+
+- Vídeo de fundo: sem som, sem controles, avança automaticamente ao terminar.
+- Imagens: permanecem alguns segundos cada, com movimento cinematográfico discreto (zoom lento e leve deslocamento, alternando o sentido para não parecer repetitivo).
+- Transição em fade suave entre todos os itens, sem cortes bruscos.
+- Sobreposição escura mantida para o título, subtítulo e botão continuarem legíveis.
+- Indicadores discretos na base para navegação manual.
 
 ## Desempenho e acessibilidade
 
-- Carregar primeiro a imagem inicial para que o topo apareça rapidamente.
-- Carregar o vídeo de forma controlada e usar uma imagem de capa enquanto ele ainda não estiver pronto.
-- Pausar mídias que não estiverem visíveis.
-- Em dispositivos com redução de movimento ativada, mostrar uma imagem estática sem zoom ou reprodução automática.
-- Preservar o enquadramento vertical atual em telas grandes e pequenas.
+- Imagens otimizadas para web, mantendo o enquadramento vertical atual do hero.
+- Vídeo com carregamento controlado e imagem de capa enquanto ele não estiver pronto.
+- Em dispositivos com redução de movimento ativada: apenas o primeiro item, sem zoom nem reprodução automática.
+- Mídia fora de exibição fica pausada.
 
-## Conteúdo necessário
+## Conteúdo
 
-- Usar uma imagem atual como primeira mídia até serem fornecidas as imagens finais.
-- Aproveitar apenas um dos vídeos já existentes no projeto; o outro deixa de aparecer no hero, mas não será excluído.
-- As novas imagens poderão substituir os espaços da sequência quando forem enviadas.
+- Os quatro arquivos enviados passam a ser as mídias oficiais do hero.
+- Os vídeos antigos deixam de aparecer no hero (não serão excluídos do projeto).
 
 ## Detalhes técnicos
 
-- Ajustar somente o componente do slider do hero e sua lista local de mídias.
-- Manter Framer Motion para fade, zoom e deslocamento suave.
-- Não alterar textos, header, portfólio, banco de dados ou outras páginas.
-- Validar a sequência, as transições e o enquadramento em desktop e celular.
+- Ajuste restrito ao componente do slider do hero e à sua lista de mídias.
+- Arquivos enviados publicados como assets do projeto, sem pesar o repositório.
+- Framer Motion para fade, zoom e deslocamento.
+- Nenhuma alteração em textos, header, portfólio, banco de dados ou outras páginas.
+- Verificação da sequência e do enquadramento em desktop e celular.
